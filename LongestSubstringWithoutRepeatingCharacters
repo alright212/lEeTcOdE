@@ -1,0 +1,36 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if not s:
+            return 0
+        if len(s) == 1:
+            return 1
+        start = 0
+        end = 1
+        max_len = 1
+        last_index = {}
+        last_index[s[0]] = 0
+        while end < len(s):
+            if s[end] in last_index and last_index[s[end]] >= start:
+                start = last_index[s[end]] + 1
+            else:
+                max_len = max(max_len, end - start + 1)
+            last_index[s[end]] = end
+            end += 1
+        return max_len
+        
+        #See kood on libiseva akna probleem.
+#Idee on kasutada räsikaarti märgi viimase indeksi salvestamiseks.
+#Seejärel kasutame pikima alamstringi leidmiseks libistatavat akent.
+#Kui tegelast räsikaardil pole, saame lõpuosuti paremale liigutada.
+#Kui tegelane on räsikaardil, peame viima alguskursori paremale.
+#Alguskursor peaks olema märgi viimane indeks + 1.
+#Peame värskendama räsikaardi märgi viimast indeksit.
+#Peame värskendama ka maksimaalset pikkust.
+#Maksimaalne pikkus on praeguse maksimaalse pikkuse ja praeguse pikkuse maksimum.
+#Praegune pikkus on lõpposuti - algusosuti + 1.
+#Ajaline keerukus on O(n).
+#Ruumi keerukus on O(n).
